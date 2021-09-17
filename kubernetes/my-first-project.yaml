@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-first-project
+  labels:
+    app: my-first-project
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-first-project
+  template:
+    metadata:
+      labels:
+        app: my-first-project
+    spec:
+      containers:
+        - name: hello-world-react
+          image: carloszan/hello-world-react:1.0.0
+          ports:
+            - containerPort: 80
+              name: web
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              port: web
+              path: /
